@@ -30,20 +30,20 @@ class PointKineticsModel:
         dt_dt = 1.0
 
         dn_dt = ((rho-self.constants.beta) *
-                 neutron_population) / self.constants.nGenTime
+                 neutron_population) / self.constants.n_gen_time
 
         for i in range(self.constants.ndg):
-            dn_dt += self.constants.lambdai[i] * precursors[i]
+            dn_dt += self.constants.lambda_groups[i] * precursors[i]
 
         drho_dt = 0.0
 
         dPrecursor_dt = [0.0] * self.constants.ndg
 
         for i in range(self.constants.ndg):
-            dPrecursor_dt[i] = ((self.constants.betai[i]
+            dPrecursor_dt[i] = ((self.constants.beta_groups[i]
                                  * neutron_population)
-                                / self.constants.nGenTime)\
-                    - (self.constants.lambdai[i]
+                                / self.constants.n_gen_time)\
+                    - (self.constants.lambda_groups[i]
                        * precursors[i])
 
         return [dt_dt, dn_dt, drho_dt] + dPrecursor_dt
