@@ -1,16 +1,28 @@
 class PointKineticsConstants:
-    
-    betai_default = [0.000215, 0.001424, 0.001274, 0.002568, 0.000748, 0.000273]
-    lambdai_default = [0.0124, 0.0305, 0.111, 0.301, 1.14, 3.01	]
-    nGenTime_default = 1E-3
-    
-    def __init__(self,
-                 betai = betai_default,
-                 lambdai = lambdai_default,
-                 nGenTime = nGenTime_default
-                ):
-        self.betai = betai
-        self.lambdai = lambdai
-        self.nGenTime = nGenTime
-        self.beta = sum(betai)
-        self.ndg = len(lambdai)
+
+    """Container for the physics constants relevant to the solver."""
+
+    BETA_GROUPS = [0.000215,
+                   0.001424,
+                   0.001274,
+                   0.002568,
+                   0.000748,
+                   0.000273]
+
+    LAMBDA_GROUPS = [0.0124,
+                     0.0305,
+                     0.111,
+                     0.301,
+                     1.14,
+                     3.01]
+
+    N_GEN_TIME = 1E-3
+
+    def __init__(self, beta_groups=BETA_GROUPS, lambda_groups=LAMBDA_GROUPS,
+                 n_gen_time=N_GEN_TIME):
+
+        self.beta_groups = beta_groups
+        self.lambda_groups = lambda_groups
+        self.n_gen_time = n_gen_time
+        self.beta = sum(beta_groups)
+        self.ndg = len(lambda_groups)

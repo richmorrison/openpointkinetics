@@ -1,5 +1,5 @@
-"""Example use of the PointKineticsSolver"""
 #!/usr/bin/python
+"""Example use of the PointKineticsSolver"""
 
 from PointKineticsSolver import PointKineticsSolver
 
