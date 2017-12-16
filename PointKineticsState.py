@@ -1,3 +1,6 @@
+"""Point Kinetics System State module."""
+
+
 class PointKineticsState:
     """Set the state of the system."""
 

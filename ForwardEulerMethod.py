@@ -1,3 +1,6 @@
+"""Class containing forward Euler ode"""
+
+
 class ForwardEulerMethod:
     """Perform the forward Euler method to progress a solution."""
 

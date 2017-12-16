@@ -24,7 +24,7 @@ d_by_dt	PointKineticsModel.py	/^    def d_by_dt(self, vector):$/;"	m	class:Point
 get_t	PointKineticsState.py	/^    def get_t(self):$/;"	m	class:PointKineticsState
 load_vector	PointKineticsState.py	/^    def load_vector(self, vector):$/;"	m	class:PointKineticsState
 log	Logger.py	/^    def log(self, dataset, x, y):$/;"	m	class:Logger
-plot	Logger.py	/^    def plot(self, datasets, xlabel=None, ylabel=None, title=None, grid=True, xlog = False, ylog=False):$/;"	m	class:Logger
+plot	Logger.py	/^    def plot(self, datasets, xlabel=None, ylabel=None, title=None, grid=True,$/;"	m	class:Logger
 plot_neutrons	PointKineticsSolver.py	/^    def plot_neutrons(self):$/;"	m	class:PointKineticsSolver
 plot_precursors	PointKineticsSolver.py	/^    def plot_precursors(self):$/;"	m	class:PointKineticsSolver
 plot_rho	PointKineticsSolver.py	/^    def plot_rho(self):$/;"	m	class:PointKineticsSolver

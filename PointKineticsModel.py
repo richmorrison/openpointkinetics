@@ -1,3 +1,6 @@
+"""Point Kinetics Model for progressing system."""
+
+
 class PointKineticsModel:
     """Class for the kinetics model."""
 
