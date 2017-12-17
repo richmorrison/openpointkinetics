@@ -31,6 +31,9 @@ class PointKineticsSolver:
     def set_rho(self, rho):
         self.state.rho = rho
     
+    def add_rho(self, rho):
+        self.state.rho = self.state.rho + rho
+    
     def set_precursors(self, precursors):
     
         if len(precursors) is not len(self.state.precursors):
