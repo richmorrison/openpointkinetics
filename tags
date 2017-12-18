@@ -33,5 +33,5 @@ set_neutrons	PointKineticsSolver.py	/^    def set_neutrons(self, neutrons):$/;"	
 set_precursors	PointKineticsSolver.py	/^    def set_precursors(self, precursors):$/;"	m	class:PointKineticsSolver
 set_rho	PointKineticsSolver.py	/^    def set_rho(self, rho):$/;"	m	class:PointKineticsSolver
 solve	ForwardEulerMethod.py	/^    def solve(self, state_vect, t_target):$/;"	m	class:ForwardEulerMethod
-solve	PointKineticsSolver.py	/^    def solve(self, t_stop, log_freq):$/;"	m	class:PointKineticsSolver
+solve	PointKineticsSolver.py	/^    def solve(self, t_change, log_freq):$/;"	m	class:PointKineticsSolver
 vectorise	PointKineticsState.py	/^    def vectorise(self):$/;"	m	class:PointKineticsState

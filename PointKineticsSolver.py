@@ -47,6 +47,7 @@ class PointKineticsSolver:
 
         self.state = PointKineticsState(constants.ndg)
         self.set_neutrons(0.0)
+        self.current_time = 0.0
 
         if method is 1:
             self.method = ForwardEulerMethod(lambda vector:
@@ -75,9 +76,12 @@ class PointKineticsSolver:
 
         self.state.precursors = precursors
 
-    def solve(self, t_stop, log_freq):
-        """Progress the solver to the stop time t_stop logging at log_freq
+    def solve(self, t_change, log_freq):
+        """Progress the solver by t_change seconds, logging at log_freq
         intervals."""
+
+        t_stop = self.current_time + t_change
+        self.current_time = t_stop
 
         if log_freq <= 0.0:
             log_freq = t_stop
