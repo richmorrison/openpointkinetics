@@ -19,6 +19,7 @@ __init__	PointKineticsConstants.py	/^    def __init__(self, beta_groups=BETA_GRO
 __init__	PointKineticsModel.py	/^    def __init__(self, constants):$/;"	m	class:PointKineticsModel
 __init__	PointKineticsSolver.py	/^    def __init__(self, constants=None, method=1):$/;"	m	class:PointKineticsSolver
 __init__	PointKineticsState.py	/^    def __init__(self, ndg):$/;"	m	class:PointKineticsState
+add_rho	PointKineticsSolver.py	/^    def add_rho(self, rho):$/;"	m	class:PointKineticsSolver
 core1	point_kinetics.py	/^core1 = PointKineticsSolver()$/;"	v
 d_by_dt	PointKineticsModel.py	/^    def d_by_dt(self, vector):$/;"	m	class:PointKineticsModel
 get_t	PointKineticsState.py	/^    def get_t(self):$/;"	m	class:PointKineticsState

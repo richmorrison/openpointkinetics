@@ -60,6 +60,10 @@ class PointKineticsSolver:
         """Set reactivity change at the current time in the solver."""
         self.state.rho = rho
 
+    def add_rho(self, rho):
+        """Create a reactivity addition."""
+        self.state.rho = self.state.rho + rho
+
     def set_precursors(self, precursors):
         """Provide new precursor values, if you want. Make sure the list you
         provide is the same length as length of the precursor list that was
