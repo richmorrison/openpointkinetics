@@ -58,7 +58,7 @@ class PointKineticsSolver:
         self.state.p = power
 
     def set_rho(self, rho):
-        """Set reactivity change at the current time."""
+        """Set reactivity at the current time."""
         self.state.rho = rho
 
     def add_rho(self, rho):
@@ -68,6 +68,14 @@ class PointKineticsSolver:
     def set_temperature(self, temp):
         """Set isothermal core temperature at the current time."""
         self.state.temperature = temp
+    
+    def set_demand(self, dem):
+        """Set steam demand at the current time"""
+        self.state.demand = dem
+    
+    def add_demand(self, dem):
+        """Add to current steam demand"""
+        self.state.demand = self.state.demand + dem
     
     def set_precursors(self, precursors):
         """Provide new precursor values, if you want. Make sure the list you
