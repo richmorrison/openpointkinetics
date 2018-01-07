@@ -42,9 +42,9 @@ class PointKineticsModel:
         for i in range(self.constants.ndg):
             dp_dt += self.constants.lambda_groups[i] * precursors[i]
 
-        drho_dt = 0.0
+        dtemp_dt = (power - demand) / heatCapacity
         
-        dtemp_dt = 0.0
+        drho_dt = dtemp_dt * alphaT
         
         ddemand_dt = 0.0
         
