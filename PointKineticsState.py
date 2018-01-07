@@ -7,7 +7,7 @@ class PointKineticsState:
     def __init__(self, ndg):
 
         self.ndg = ndg
-        self.n = 0.0
+        self.p = 0.0
         self.rho = 0.0
 
         self.precursors = [0.0]*ndg
@@ -23,7 +23,7 @@ class PointKineticsState:
             None
 
         Returns:
-            vector - list made of time value, neutron population, reactivity
+            vector - list made of time value, power, reactivity
                 change, and all precursor values.
 
         Excepts:
@@ -32,7 +32,7 @@ class PointKineticsState:
         vector = [0.0]*self.vectorLen
 
         vector[0] = self.t
-        vector[1] = self.n
+        vector[1] = self.p
         vector[2] = self.rho
         vector[3:] = self.precursors
 
@@ -46,7 +46,7 @@ class PointKineticsState:
             exit()
 
         self.t = vector[0]
-        self.n = vector[1]
+        self.p = vector[1]
         self.rho = vector[2]
         self.precursors = vector[3:]
 
