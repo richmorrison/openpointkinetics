@@ -7,7 +7,7 @@ from PointKineticsSolver import PointKineticsSolver
 core1 = PointKineticsSolver()
 
 # Set starting neutrons
-core1.set_neutrons(1E8)
+core1.set_power(1E8)
 
 # Run for 60 seconds to reach initial equilibrium
 core1.solve(t_change=60, log_freq=0.1)
@@ -25,5 +25,5 @@ core1.set_rho(0.0)
 core1.solve(t_change=60, log_freq=0.1)
 
 core1.plot_rho()
-core1.plot_neutrons()
+core1.plot_power()
 core1.plot_precursors()
