@@ -1,7 +1,7 @@
 """Point Kinetics Solver.
 
-Point kinetics solver class. Feed it a number of neutrons via `set_neutrons`, a
-reactivity change via `set_rho`, and an amount of time and tempoeral resolution
+Point kinetics solver class. Feed it a power level via `set_power`, a
+reactivity change via `set_rho`, and an amount of time and temporal resolution
 over which to progress a solution via `solve`, and get access to plot
 functionality for the data stored via these methods.
 """
@@ -14,8 +14,8 @@ from Logger import Logger
 
 class PointKineticsSolver:
 
-    """Contains functionality to set reactivity parameters and solve for neutron
-    population and precursor populations.
+    """Contains functionality to set reactivity parameters and solve for power
+    and precursor populations.
 
     Args:
         constants - the constants required by the solver: the beta group
@@ -46,16 +46,16 @@ class PointKineticsSolver:
         self.pk_model = PointKineticsModel(constants)
 
         self.state = PointKineticsState(constants.ndg)
-        self.set_neutrons(0.0)
+        self.set_power(0.0)
         self.current_time = 0.0
 
         if method is 1:
             self.method = ForwardEulerMethod(lambda vector:
                                              self.pk_model.d_by_dt(vector))
 
-    def set_neutrons(self, neutrons):
-        """Set initial neutron population."""
-        self.state.n = neutrons
+    def set_power(self, power):
+        """Set initial core power."""
+        self.state.p = power
 
     def set_rho(self, rho):
         """Set reactivity change at the current time in the solver."""
@@ -88,7 +88,7 @@ class PointKineticsSolver:
 
         while self.state.get_t() <= t_stop:
 
-            self.logger1.log("neutrons", self.state.get_t(), self.state.n)
+            self.logger1.log("power", self.state.get_t(), self.state.p)
             self.logger1.log("rho", self.state.get_t(), self.state.rho)
 
             for i in range(self.ndg):
@@ -101,15 +101,15 @@ class PointKineticsSolver:
 
             self.state.load_vector(new_state)
 
-    def plot_neutrons(self):
-        """Plot neutron population from time 0 to latest t_stop from `solve`
+    def plot_power(self):
+        """Plot core power from time 0 to latest t_stop from `solve`
         method."""
 
-        self.logger1.plot(["neutrons"],
+        self.logger1.plot(["power"],
                           xlabel="Time(s)",
-                          ylabel="Neutrons",
+                          ylabel="power",
                           ylog=True,
-                          title="Variation of Number of Neutrons with Time")
+                          title="Variation of Core Power with Time")
 
     def plot_rho(self):
         """Plot reactivity changes from time 0 to latest t_stop from `solve`
