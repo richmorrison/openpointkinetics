@@ -9,16 +9,16 @@ class PointKineticsModel:
         self.constants = constants
 
     def d_by_dt(self, vector):
-        """Calculates rate of change of precursors.
+        """Calculates rate of change of all elements of a vectorised state.
 
         Arguments:
-            vector - list containing the initial value of the neutron
-            population, the reactivity change made to the system, and the
-            precursor values.
+            vector - list containing the current state variables of the
+            system, as returned by a PointKineticsState instance.
+            [t, power, rho, c1...cN]
 
         Returns:
             dt_dt - the rate of change of time over time.
-            dn_dt - the rate of change of population over time.
+            dp_dt - the rate of change of population over time.
             drho_dt - rate of change of reactivity over time.
             dPrecursor_dt - amount contributed by the neutron energy group
             precursors to each of the above.
@@ -26,27 +26,27 @@ class PointKineticsModel:
         Excepts:
             None"""
 
-        neutron_population = vector[1]
+        power = vector[1]
         rho = vector[2]
         precursors = vector[3:]
 
         dt_dt = 1.0
 
-        dn_dt = ((rho-self.constants.beta) *
-                 neutron_population) / self.constants.n_gen_time
+        dp_dt = ((rho-self.constants.beta) / self.constants.n_gen_time) *
+                 power
 
         for i in range(self.constants.ndg):
-            dn_dt += self.constants.lambda_groups[i] * precursors[i]
+            dp_dt += self.constants.lambda_groups[i] * precursors[i]
 
         drho_dt = 0.0
 
         dPrecursor_dt = [0.0] * self.constants.ndg
 
         for i in range(self.constants.ndg):
-            dPrecursor_dt[i] = ((self.constants.beta_groups[i]
-                                 * neutron_population)
-                                / self.constants.n_gen_time)\
-                    - (self.constants.lambda_groups[i]
-                       * precursors[i])
+            dPrecursor_dt[i] = (self.constants.beta_groups[i] / 
+                                self.constants.n_gen_time) *
+                                power -
+                                (self.constants.lambda_groups[i] *
+                                precursors[i])
 
-        return [dt_dt, dn_dt, drho_dt] + dPrecursor_dt
+        return [dt_dt, dp_dt, drho_dt] + dPrecursor_dt
