@@ -32,6 +32,9 @@ class PointKineticsState:
         #
         self.alphaT = 0.0
         
+        # Heat capacity of total thermal body (J/K)
+        self.heatCapacity = 0.0
+        
         # List of precursor populations in each group
         # Since we are modelling power and not neutron numbers,
         # "precursor population"" is to be interpreted as:
@@ -44,7 +47,7 @@ class PointKineticsState:
         self.time = 0.0
 
         # Length of this state when vectorised
-        self.vectorLen = self.ndg+6
+        self.vectorLen = self.ndg+7
 
     def vectorise(self):
         """Pack the separate paramers into a single list.
@@ -67,7 +70,8 @@ class PointKineticsState:
         vector[3] = self.temperature
         vector[4] = self.demand
         vector[5] = self.alphaT
-        vector[6:] = self.precursors
+        vector[6] = self.heatCapacity
+        vector[7:] = self.precursors
 
         return vector
 
@@ -84,7 +88,8 @@ class PointKineticsState:
         self.temperature = vector[3]
         self.demand = vector[4]
         self.alphaT = vector[5]
-        self.precursors = vector[6:]
+        self.heatCapacity = vector[6]
+        self.precursors = vector[7:]
 
         return None
 
