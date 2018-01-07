@@ -28,7 +28,10 @@ class PointKineticsModel:
 
         power = vector[1]
         rho = vector[2]
-        precursors = vector[3:]
+        temperature = vector[3]
+        demand = vector[4]
+        alphaT = vector[5]
+        precursors = vector[6:]
 
         dt_dt = 1.0
 
@@ -39,6 +42,12 @@ class PointKineticsModel:
             dp_dt += self.constants.lambda_groups[i] * precursors[i]
 
         drho_dt = 0.0
+        
+        dtemp_dt = 0.0
+        
+        ddemand_dt = 0.0
+        
+        dalphaT_dt = 0.0
 
         dPrecursor_dt = [0.0] * self.constants.ndg
 
@@ -49,4 +58,9 @@ class PointKineticsModel:
                                  (self.constants.lambda_groups[i] *
                                  precursors[i]) )
 
-        return [dt_dt, dp_dt, drho_dt] + dPrecursor_dt
+        return [dt_dt,
+                dp_dt,
+                drho_dt,
+                dtemp_dt,
+                ddemand_dt,
+                dalphaT_dt ] + dPrecursor_dt
