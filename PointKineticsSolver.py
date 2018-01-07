@@ -47,7 +47,6 @@ class PointKineticsSolver:
 
         self.state = PointKineticsState(constants.ndg)
         self.set_power(0.0)
-        self.current_time = 0.0
 
         if method is 1:
             self.method = ForwardEulerMethod(lambda vector:
@@ -100,8 +99,7 @@ class PointKineticsSolver:
         """Progress the solver by t_change seconds, logging at log_freq
         intervals."""
 
-        t_stop = self.current_time + t_change
-        self.current_time = t_stop
+        t_stop = self.state.get_t() + t_change
 
         if log_freq <= 0.0:
             log_freq = t_stop
