@@ -77,6 +77,10 @@ class PointKineticsSolver:
         """Add to current steam demand"""
         self.state.demand = self.state.demand + dem
     
+    def set_alphaT(self, aT):
+        """Set isothermal temperature coefficient of reactivity"""
+        self.state.alphaT = aT
+    
     def set_precursors(self, precursors):
         """Provide new precursor values, if you want. Make sure the list you
         provide is the same length as length of the precursor list that was
