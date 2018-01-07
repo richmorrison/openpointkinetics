@@ -81,6 +81,10 @@ class PointKineticsSolver:
         """Set isothermal temperature coefficient of reactivity"""
         self.state.alphaT = aT
     
+    def set_heatCapacity(self, capacity):
+        """Set heat capacity of thermal feedback body"""
+        self.state.heatCapacity = capacity
+    
     def set_precursors(self, precursors):
         """Provide new precursor values, if you want. Make sure the list you
         provide is the same length as length of the precursor list that was
