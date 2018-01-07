@@ -110,6 +110,10 @@ class PointKineticsSolver:
 
             self.logger1.log("power", self.state.get_t(), self.state.p)
             self.logger1.log("rho", self.state.get_t(), self.state.rho)
+            self.logger1.log("temperature", self.state.get_t(), self.state.temperature)
+            self.logger1.log("demand", self.state.get_t(), self.state.demand)
+            self.logger1.log("alphaT", self.state.get_t(), self.state.alphaT)
+            self.logger1.log("heatCapacity", self.state.get_t(), self.state.heatCapacity)
 
             for i in range(self.ndg):
                 self.logger1.log("precursor"+str(i),
@@ -139,6 +143,38 @@ class PointKineticsSolver:
                           xlabel="Time(s)",
                           ylabel="Rho",
                           title="Variation of Reactivity with Time")
+
+    def plot_temperature(self):
+        """Plot temperature changes from time 0 to latest t_stop from 'solve'"""
+        
+        self.logger1.plot(["temperature"],
+                          xlabel="Time(s)",
+                          ylabel="Temperature",
+                          title="Variation of Temperature with Time")
+
+    def plot_demand(self):
+        """Plot steam demand changes from time 0 to latest t_stop from 'solve'"""
+        
+        self.logger1.plot(["demand"],
+                          xlabel="Time(s)",
+                          ylabel="Steam Demand (J)",
+                          title="Variation of Steam Demand with Time")
+
+    def plot_alphaT(self):
+        """Plot alpha-T changes from time 0 to latest t_stop from 'solve'"""
+        
+        self.logger1.plot(["alphaT"],
+                          xlabel="Time(s)",
+                          ylabel="alpha-T",
+                          title="Variation of alpha-T with Time")
+
+    def plot_heatCapacity(self):
+        """Plot changes in thermal body heat capacity from time 0 to latest t_stop from 'solve'"""
+        
+        self.logger1.plot(["heatCapacity"],
+                          xlabel="Time(s)",
+                          ylabel="Heat Capacity",
+                          title="Variation of Thermal Body Heat Capacity with Time")
 
     def plot_precursors(self):
         """Plot precursor populations from time 0 to latest t_stop from `solve`
