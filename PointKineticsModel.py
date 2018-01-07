@@ -31,7 +31,8 @@ class PointKineticsModel:
         temperature = vector[3]
         demand = vector[4]
         alphaT = vector[5]
-        precursors = vector[6:]
+        heatCapacity = vector[6]
+        precursors = vector[7:]
 
         dt_dt = 1.0
 
@@ -48,7 +49,9 @@ class PointKineticsModel:
         ddemand_dt = 0.0
         
         dalphaT_dt = 0.0
-
+        
+        dheatCapacity_dt = 0.0
+        
         dPrecursor_dt = [0.0] * self.constants.ndg
 
         for i in range(self.constants.ndg):
@@ -63,4 +66,5 @@ class PointKineticsModel:
                 drho_dt,
                 dtemp_dt,
                 ddemand_dt,
-                dalphaT_dt ] + dPrecursor_dt
+                dalphaT_dt,
+                dheatCapacity_dt ] + dPrecursor_dt
