@@ -9,6 +9,7 @@ from PointKineticsModel import PointKineticsModel
 from PointKineticsConstants import PointKineticsConstants
 from PointKineticsState import PointKineticsState
 from ForwardEulerMethod import ForwardEulerMethod
+from RungeKuttaFourthOrder import RK4
 from Logger import Logger
 
 
@@ -51,6 +52,9 @@ class PointKineticsSolver:
         if method is 1:
             self.method = ForwardEulerMethod(lambda vector:
                                              self.pk_model.d_by_dt(vector))
+        if method is 2:
+            self.method = RK4(lambda vector:
+                              self.pk_model.d_by_dt(vector))
 
     def set_power(self, power):
         """Set initial core power."""
