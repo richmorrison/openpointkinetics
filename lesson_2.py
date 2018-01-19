@@ -1,5 +1,5 @@
 #!/usr/bin/python
-"""Example use of the PointKineticsSolver"""
+"""Lesson 2 - Reactivity addition with thermal feedback"""
 
 import openpointkinetics
 
@@ -43,16 +43,6 @@ core1.solve(t_change=300, log_freq=0.1)
 # than power.
 core1.add_rho(1E-3)
 core1.solve(t_change=300, log_freq=0.1) # Give it 5 minutes to watch equilibrium evolve.
-
-# Back to where we were.
-core1.add_rho(-1E-3)
-core1.solve(t_change=300, log_freq=0.1)
-
-# Instead, core power is controlled by directly taking more steam from
-# the plant. The resulting temperature change should cause a power increase
-# and we should return to the standard operating temperature.
-core1.set_demand(4000.0E6)
-core1.solve(t_change=300, log_freq=0.1)
 
 core1.plot_rho()
 core1.plot_power()
