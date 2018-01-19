@@ -8,10 +8,8 @@ functionality for the data stored via these methods.
 from PointKineticsModel import PointKineticsModel
 from PointKineticsConstants import PointKineticsConstants
 from PointKineticsState import PointKineticsState
-from ForwardEulerMethod import ForwardEulerMethod
-from RungeKuttaFourthOrder import RK4
 from Logger import Logger
-
+import numericalmethods
 
 class PointKineticsSolver:
 
@@ -50,7 +48,7 @@ class PointKineticsSolver:
         self.set_power(0.0)
 
         if method is 1:
-            self.method = ForwardEulerMethod(lambda vector:
+            self.method = numericalmethods.ForwardEulerMethod(lambda vector:
                                              self.pk_model.d_by_dt(vector))
         if method is 2:
             self.method = RK4(lambda vector:

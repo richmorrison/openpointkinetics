@@ -27,7 +27,7 @@ class RK4:
         current_vect = list(state_vect)
 
         while True:
-            t, y, *others = current_vect
+            t, y, others = current_vect
 
             k1 = self.ddt([t] + [y] + others)
             k2 = self.ddt([t + self.h/2.] + [y + self.h*k1[1]/2.] + others)

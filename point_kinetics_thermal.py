@@ -1,11 +1,11 @@
 #!/usr/bin/python
 """Example use of the PointKineticsSolver"""
 
-from PointKineticsSolver import PointKineticsSolver
+import openpointkinetics
 
 
 # Create a new core
-core1 = PointKineticsSolver()
+core1 = openpointkinetics.PointKineticsSolver()
 
 # For fun, let's speculate on some values for Sizewell B,
 # we can calculate some rough data from the document

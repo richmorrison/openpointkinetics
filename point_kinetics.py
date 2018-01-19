@@ -1,10 +1,9 @@
 #!/usr/bin/python
 """Example use of the PointKineticsSolver"""
+import openpointkinetics
 
-from PointKineticsSolver import PointKineticsSolver
 
-
-core1 = PointKineticsSolver()
+core1 = openpointkinetics.PointKineticsSolver()
 
 # Set starting neutrons
 core1.set_power(1E8)
