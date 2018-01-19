@@ -1,6 +1,7 @@
 #!/usr/bin/python
-"""Example use of the PointKineticsSolver"""
+"""Lesson 1 - Reactivity bump without thermal feedback"""
 import openpointkinetics
+
 
 
 core1 = openpointkinetics.PointKineticsSolver()
