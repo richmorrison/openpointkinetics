@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+
 """Lesson 2 - Reactivity addition with thermal feedback"""
 
 import openpointkinetics

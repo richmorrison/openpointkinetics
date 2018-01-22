@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+
 """Lesson 1 - Reactivity bump without thermal feedback"""
 import openpointkinetics
 
