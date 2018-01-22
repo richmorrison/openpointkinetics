@@ -25,18 +25,14 @@ class RK4:
             None"""
 
         current_vect = list(state_vect)
-
-        while True:
-            t, y, others = current_vect
-
-            k1 = self.ddt([t] + [y] + others)
-            k2 = self.ddt([t + self.h/2.] + [y + self.h*k1[1]/2.] + others)
-            k3 = self.ddt([t + self.h/2.] + [y + self.h*k2[1]/2.] + others)
-            k4 = self.ddt([t + self.h/2.] + [y + self.h*k3[1]] + others)
-
-            current_vect = [y + (self.h/6.)*(k1 + 2*k2 + 2*k3 + k4)
-                            for y, k1, k2, k3, k4
-                            in zip(current_vect, k1, k2, k3, k4)]
-
-            if current_vect[0] > t_target:
-                return current_vect
+        
+        while current_vect[0] < t_target:
+            
+            k1 = self.ddt(current_vect)
+            k2 = self.ddt( [current_vect[i]+self.h*(k1[i]/2) for i in range(len(current_vect))] )
+            k3 = self.ddt( [current_vect[i]+self.h*(k2[i]/2) for i in range(len(current_vect))] )
+            k4 = self.ddt( [current_vect[i]+self.h*k3[i]   for i in range(len(current_vect))] )
+            
+            current_vect=[current_vect[i]+(self.h/6)*(k1[i]+2*k2[i]+2*k3[i]+k4[i]) for i in range(len(current_vect))]
+            
+        return current_vect
