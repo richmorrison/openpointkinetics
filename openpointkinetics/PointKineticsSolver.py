@@ -9,7 +9,7 @@ from PointKineticsModel import PointKineticsModel
 from PointKineticsConstants import PointKineticsConstants
 from PointKineticsState import PointKineticsState
 from Logger import Logger
-import numericalmethods
+from numericalmethods import Builder
 
 class PointKineticsSolver:
 
@@ -33,7 +33,7 @@ class PointKineticsSolver:
 
     """
 
-    def __init__(self, constants=None, method=1):
+    def __init__(self, constants=None, method='F_Euler'):
 
         if constants is None:
             constants = PointKineticsConstants()
@@ -47,12 +47,7 @@ class PointKineticsSolver:
         self.state = PointKineticsState(constants.ndg)
         self.set_power(0.0)
 
-        if method is 1:
-            self.method = numericalmethods.ForwardEulerMethod(lambda vector:
-                                             self.pk_model.d_by_dt(vector))
-        if method is 2:
-            self.method = RK4(lambda vector:
-                              self.pk_model.d_by_dt(vector))
+        self.method = Builder.builder(method, lambda vector: self.pk_model.d_by_dt(vector))
 
     def set_power(self, power):
         """Set initial core power."""
