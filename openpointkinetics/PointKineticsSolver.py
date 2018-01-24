@@ -5,11 +5,11 @@ reactivity change via `set_rho`, and an amount of time and temporal resolution
 over which to progress a solution via `solve`, and get access to plot
 functionality for the data stored via these methods.
 """
-from PointKineticsModel import PointKineticsModel
-from PointKineticsConstants import PointKineticsConstants
-from PointKineticsState import PointKineticsState
-from Logger import Logger
-from numericalmethods import Builder
+from openpointkinetics.PointKineticsModel import PointKineticsModel
+from openpointkinetics.PointKineticsConstants import PointKineticsConstants
+from openpointkinetics.PointKineticsState import PointKineticsState
+from openpointkinetics.Logger import Logger
+from openpointkinetics.numericalmethods import Builder
 
 class PointKineticsSolver:
 

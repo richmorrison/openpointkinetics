@@ -102,3 +102,7 @@ ENV/
 
 # vimthings
 tags
+
+# PyCharm things
+.ideas
+.ideas/

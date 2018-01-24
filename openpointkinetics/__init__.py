@@ -1,1 +1,1 @@
-from PointKineticsSolver import PointKineticsSolver
+from openpointkinetics.PointKineticsSolver import PointKineticsSolver

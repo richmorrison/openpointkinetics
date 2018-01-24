@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-
 """Lesson 3 - Change steam demand"""
-
 import openpointkinetics
 
 

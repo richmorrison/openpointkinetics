@@ -8,8 +8,8 @@ keep that code as tidy as possible.
 
 def builder(method, ddt, h=1E-3):
 
-    from ForwardEulerMethod import ForwardEulerMethod
-    from RungeKuttaFourthOrder import RK4
+    from openpointkinetics.numericalmethods.ForwardEulerMethod import ForwardEulerMethod
+    from openpointkinetics.numericalmethods.RungeKuttaFourthOrder import RK4
     
     # Set a default if the specified method not recognised
     if method.lower() not in [i.lower() for i in ['F_Euler', 'RK4']]:
