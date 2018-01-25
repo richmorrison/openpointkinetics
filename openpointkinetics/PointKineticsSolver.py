@@ -139,7 +139,7 @@ class PointKineticsSolver:
 
         self.logger1.plot(["rho"],
                           xlabel="Time(s)",
-                          ylabel="Rho",
+                          ylabel=r"$\rho$",
                           title="Variation of Reactivity with Time")
 
     def plot_temperature(self):
@@ -165,8 +165,8 @@ class PointKineticsSolver:
 
         self.logger1.plot(["alpha_t"],
                           xlabel="Time(s)",
-                          ylabel=r"$\alpha_{T}",
-                          title=r"Variation of $\alpha_{T} with Time")
+                          ylabel=r"$\alpha_{T}$",
+                          title=r"Variation of $\alpha_{T}$ with Time")
 
     def plot_heat_capacity(self):
         """Plot changes in thermal body heat capacity from time 0 to latest

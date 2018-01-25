@@ -48,6 +48,8 @@ class Logger:
         Excepts:
             None"""
 
+        fig = plt.figure(figsize=(12, 9))
+
         for dataset in datasets:
             x = np.asarray(self.data[dataset][0])
             y = np.asarray(self.data[dataset][1])
