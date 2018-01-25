@@ -85,13 +85,41 @@ class PointKineticsSolver:
         """Provide new precursor values, if you want. Make sure the list you
         provide is the same length as length of the precursor list that was
         created in the constructor."""
-
+    
         if len(precursors) is not len(self.state.precursors):
             print("Wrong vector length for set_precursors operation.")
             exit()
-
+    
         self.state.precursors = precursors
+    
+    def set_example_params(self):
+        
+        # For fun, let's speculate on some values for Sizewell B,
+        # we can calculate some rough data from the document
+        # http://www.iaea.org/inis/collection/NCLCollectionStore/_Public/29/010/29010110.pdf
+        
+        # Set a bulk isothermal temperature of 300 C
+        self.set_temperature(300.0)
+        
+        # Approximate the core to a mass of water with volume equal to the volume
+        # of water in the primary circuit - 334.5 m^3 (1 m^3 = 1E6 cm^3).
+        # Specific heat capacity of water is 4.1813 J.g^-1.K^-1 @ 100C (this will do)
+        # Density of water is 1.0 g per cubic cm
+        self.set_heatCapacity(334.5*1E6*4.1813)
 
+        # Not sure what a representative alpha-T would be. Picking -2.5E-4 as
+        # a rough right-order-of-magnitude value.
+        self.set_alphaT(-2.5E-4)
+
+        # Set the core demand to the steam power of 3500 MW
+        self.set_demand(3500.0E6)
+
+        # Set the core power to the same as the steam power of 3500 MW)
+        self.set_power(3500.0E6)
+
+        # Set initial reactivity
+        self.set_rho(0.0)
+    
     def solve(self, t_change, log_freq, log=True):
         """Progress the solver by t_change seconds, logging at log_freq
         intervals."""
