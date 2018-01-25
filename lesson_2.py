@@ -32,7 +32,7 @@ core1.set_power(3500.0E6)
 # Set initial reactivity (Only do set_rho() once or things get confused)
 core1.set_rho(0.0)
 
-# 5 mins to settle
+# 5 minutes to settle
 core1.solve(t_change=300, log_freq=0.1)
 
 # Let's suppose we raise the control rods and inject some reactivity without
@@ -41,7 +41,7 @@ core1.solve(t_change=300, log_freq=0.1)
 # operationally the rods can be used to control core temperature, rather
 # than power.
 core1.add_rho(1E-3)
-core1.solve(t_change=300, log_freq=0.1) # Give it 5 minutes to watch equilibrium evolve.
+core1.solve(t_change=300, log_freq=0.1)  # Give it 5 minutes to watch equilibrium evolve.
 
 core1.plot_rho()
 core1.plot_power()
