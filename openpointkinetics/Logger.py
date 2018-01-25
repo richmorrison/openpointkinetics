@@ -4,7 +4,6 @@ import numpy as np
 
 
 class Logger:
-
     """Data logging class."""
 
     def __init__(self):
@@ -63,12 +62,12 @@ class Logger:
 
         plt.grid(grid)
 
-        if xlog is True:
+        if xlog:
             plt.xscale('log')
         else:
             plt.xscale('linear')
 
-        if ylog is True:
+        if ylog:
             plt.yscale('log')
         else:
             plt.yscale('linear')
