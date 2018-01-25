@@ -92,7 +92,7 @@ class PointKineticsSolver:
 
         self.state.precursors = precursors
 
-    def solve(self, t_change, log_freq):
+    def solve(self, t_change, log_freq, log=True):
         """Progress the solver by t_change seconds, logging at log_freq
         intervals."""
 
@@ -102,18 +102,20 @@ class PointKineticsSolver:
             log_freq = t_stop
 
         while self.state.get_t() <= t_stop:
-
-            self.logger1.log("power", self.state.get_t(), self.state.p)
-            self.logger1.log("rho", self.state.get_t(), self.state.rho)
-            self.logger1.log("temperature", self.state.get_t(), self.state.temperature)
-            self.logger1.log("demand", self.state.get_t(), self.state.demand)
-            self.logger1.log("alphaT", self.state.get_t(), self.state.alphaT)
-            self.logger1.log("heatCapacity", self.state.get_t(), self.state.heatCapacity)
-
-            for i in range(self.ndg):
-                self.logger1.log("precursor"+str(i),
-                                 self.state.get_t(),
-                                 self.state.precursors[i])
+            
+            if log:
+            
+                self.logger1.log("power", self.state.get_t(), self.state.p)
+                self.logger1.log("rho", self.state.get_t(), self.state.rho)
+                self.logger1.log("temperature", self.state.get_t(), self.state.temperature)
+                self.logger1.log("demand", self.state.get_t(), self.state.demand)
+                self.logger1.log("alphaT", self.state.get_t(), self.state.alphaT)
+                self.logger1.log("heatCapacity", self.state.get_t(), self.state.heatCapacity)
+                
+                for i in range(self.ndg):
+                    self.logger1.log("precursor"+str(i),
+                                     self.state.get_t(),
+                                     self.state.precursors[i])
 
             new_state = self.method.solve(self.state.vectorise(),
                                           self.state.get_t()+log_freq)
