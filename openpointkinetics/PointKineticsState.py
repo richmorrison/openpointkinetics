@@ -97,3 +97,7 @@ class PointKineticsState:
         """Return current time value."""
 
         return self.time
+    
+    def zero_t(self):
+        """Zero time value"""
+        self.time = 0.0

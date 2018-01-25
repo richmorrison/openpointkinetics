@@ -149,6 +149,14 @@ class PointKineticsSolver:
                                           self.state.get_t()+log_freq)
 
             self.state.load_vector(new_state)
+    
+    def settle(self):
+        
+        """Run simulation for a period to reach equilibrium.
+        Turns off logging and resets t to 0s"""
+        
+        self.solve(300, 0, log=False)
+        self.state.zero_t()
 
     def plot_power(self):
         """Plot core power from time 0 to latest t_stop from `solve`
