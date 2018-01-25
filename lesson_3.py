@@ -6,7 +6,7 @@ import openpointkinetics
 # Create a new core
 core1 = openpointkinetics.PointKineticsSolver()
 
-core1.set_example_params()
+core1.set_example_thermal_params()
 
 # 5 mins to settle
 core1.solve(t_change=300, log_freq=0.1)

@@ -92,7 +92,7 @@ class PointKineticsSolver:
     
         self.state.precursors = precursors
     
-    def set_example_params(self):
+    def set_example_thermal_params(self):
         
         # For fun, let's speculate on some values for Sizewell B,
         # we can calculate some rough data from the document
