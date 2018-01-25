@@ -47,7 +47,8 @@ class PointKineticsSolver:
         self.state = PointKineticsState(constants.ndg)
         self.set_power(0.0)
 
-        self.method = Builder.builder(method, lambda vector: self.pk_model.d_by_dt(vector))
+        self.method = Builder.builder(method, lambda vector:
+                                      self.pk_model.d_by_dt(vector))
 
     def set_power(self, power):
         """Set initial core power."""
@@ -88,7 +89,7 @@ class PointKineticsSolver:
 
         if len(precursors) is not len(self.state.precursors):
             print("Wrong vector length for set_precursors operation.")
-            exit()
+            exit()  # TODO: should this be 'return None'?
 
         self.state.precursors = precursors
 
@@ -105,10 +106,12 @@ class PointKineticsSolver:
 
             self.logger1.log("power", self.state.get_t(), self.state.p)
             self.logger1.log("rho", self.state.get_t(), self.state.rho)
-            self.logger1.log("temperature", self.state.get_t(), self.state.temperature)
+            self.logger1.log("temperature", self.state.get_t(),
+                             self.state.temperature)
             self.logger1.log("demand", self.state.get_t(), self.state.demand)
-            self.logger1.log("alphaT", self.state.get_t(), self.state.alphaT)
-            self.logger1.log("heatCapacity", self.state.get_t(), self.state.heatCapacity)
+            self.logger1.log("alpha_t", self.state.get_t(), self.state.alpha_t)
+            self.logger1.log("heatCapacity", self.state.get_t(),
+                             self.state.heat_capacity)
 
             for i in range(self.ndg):
                 self.logger1.log("precursor"+str(i),
@@ -148,23 +151,25 @@ class PointKineticsSolver:
                           title="Variation of Temperature with Time")
 
     def plot_demand(self):
-        """Plot steam demand changes from time 0 to latest t_stop from 'solve'"""
+        """Plot steam demand changes from time 0 to latest t_stop from
+        'solve'"""
         
         self.logger1.plot(["demand"],
                           xlabel="Time(s)",
                           ylabel="Steam Demand (J)",
                           title="Variation of Steam Demand with Time")
 
-    def plot_alphaT(self):
+    def plot_alpha_t(self):
         """Plot alpha-T changes from time 0 to latest t_stop from 'solve'"""
         
-        self.logger1.plot(["alphaT"],
+        self.logger1.plot(["alpha_t"],
                           xlabel="Time(s)",
-                          ylabel="alpha-T",
-                          title="Variation of alpha-T with Time")
+                          ylabel=r"$\alpha_{T}$",
+                          title=r"Variation of $\alpha_{T}$ with Time")
 
     def plot_heatCapacity(self):
-        """Plot changes in thermal body heat capacity from time 0 to latest t_stop from 'solve'"""
+        """Plot changes in thermal body heat capacity from time 0 to latest
+        t_stop from 'solve'"""
         
         self.logger1.plot(["heatCapacity"],
                           xlabel="Time(s)",
