@@ -28,7 +28,7 @@ core1.set_rho(0.0)  # set rho (only do set_rho() once or it gets confused)
 
 core1.settle()  # settle to equilibrium
 
-core1.solve(t_change=300, log_freq=0.1)  # 5 mins to establish some equilibrium
+core1.solve(t_change=30, log_freq=0.1)  # 30 second lead time to start graph
 
 """Let's suppose we raise the control rods and inject some reactivity without
 changing the steam demand. We should see a self correcting power transient,

@@ -86,16 +86,15 @@ class PointKineticsSolver:
         """Provide new precursor values, if you want. Make sure the list you
         provide is the same length as length of the precursor list that was
         created in the constructor."""
-    
+
         if len(precursors) is not len(self.state.precursors):
             print("Wrong vector length for set_precursors operation.")
 
             exit()  # TODO: should this be 'return None'?
 
         self.state.precursors = precursors
-    
+
     def set_example_thermal_params(self):
-        
         """For fun, let's speculate on some values for Sizewell B,
         we can calculate some rough data from the document
         http://www.iaea.org/inis/collection/NCLCollectionStore/_Public/29/010/29010110.pdf"""
@@ -110,14 +109,13 @@ class PointKineticsSolver:
 
         """Not sure what a representative alpha_t would be. Picking -2.5E-4 as
         a rough right-order-of-magnitude value."""
-        core1.set_alpha_t(-2.5E-4)
+        self.set_alpha_t(-2.5E-4)
 
-        core1.set_demand(3500.0E6)  # set core demand to a steam power of 3500MW
+        self.set_demand(3500.0E6)  # set core demand to a steam power of 3500MW
 
-        core1.set_power(3500.0E6)  # set core power equal to steam demand
+        self.set_power(3500.0E6)  # set core power equal to steam demand
 
-        core1.set_rho(0.0)  # set rho
-
+        self.set_rho(0.0)  # set rho
 
     def solve(self, t_change, log_freq, log=True):
         """Progress the solver by t_change seconds, logging at log_freq
@@ -129,15 +127,18 @@ class PointKineticsSolver:
             log_freq = t_stop
 
         while self.state.get_t() <= t_stop:
-            
             if log:
 
-                self.logger1.log("power", self.state.get_t(), self.state.p)
+                self.logger1.log("power", self.state.get_t(), self.state.power)
                 self.logger1.log("rho", self.state.get_t(), self.state.rho)
-                self.logger1.log("temperature", self.state.get_t(), self.state.temperature)
-                self.logger1.log("demand", self.state.get_t(), self.state.demand)
-                self.logger1.log("alphaT", self.state.get_t(), self.state.alphaT)
-                self.logger1.log("heatCapacity", self.state.get_t(), self.state.heatCapacity)
+                self.logger1.log("temperature", self.state.get_t(),
+                                 self.state.temperature)
+                self.logger1.log("demand", self.state.get_t(),
+                                 self.state.demand)
+                self.logger1.log("alpha_t", self.state.get_t(),
+                                 self.state.alpha_t)
+                self.logger1.log("heat_capacity", self.state.get_t(),
+                                 self.state.heat_capacity)
 
                 for i in range(self.ndg):
                     self.logger1.log("precursor"+str(i),
@@ -147,12 +148,12 @@ class PointKineticsSolver:
                                           self.state.get_t()+log_freq)
 
             self.state.load_vector(new_state)
-    
+
     def settle(self):
-        
+
         """Run simulation for a period to reach equilibrium.
         Turns off logging and resets t to 0s"""
-        
+
         self.solve(300, 0, log=False)
         self.state.zero_t()
 
@@ -200,6 +201,7 @@ class PointKineticsSolver:
                           xlabel="Time(s)",
                           ylabel=r"$\alpha_{T}$",
                           title=r"Variation of $\alpha_{T}$ with Time")
+
     def plot_heat_capacity(self):
         """Plot changes in thermal body heat capacity from time 0 to latest
         t_stop from 'solve'"""

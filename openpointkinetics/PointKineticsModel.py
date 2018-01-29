@@ -77,5 +77,5 @@ class PointKineticsModel:
                                  (self.constants.lambda_groups[i] *
                                  precursors[i]) )
 
-        return [dt_dt, dp_dt, drho_dt, dtemp_dt, ddemand_dt, dalphaT_dt,
-                dheatCapacity_dt] + dPrecursor_dt
+        return [dt_dt, dp_dt, drho_dt, dtemp_dt, ddemand_dt, dalpha_t_dt,
+                dheat_capacity_dt] + dprecursor_dt
