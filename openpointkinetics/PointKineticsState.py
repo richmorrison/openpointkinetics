@@ -6,48 +6,33 @@ class PointKineticsState:
 
     def __init__(self, ndg):
 
-        # Number of delayed groups
-        #
-        self.ndg = ndg
-        
-        # Core power
-        #
-        self.p = 0.0
-        
-        # Core reactivity
-        #
-        self.rho = 0.0
-        
-        # Temperature of the core (isothermal approximation)
-        #
-        self.temperature = 0.0
-        
-        # Steam demand on the core (Watts)
-        #
-        self.demand = 0.0
-        
-        # alphaT could vary with time or state, so is not considered a constant
-        # and is best placed in this module
-        # (isothermal approximation)
-        #
-        self.alphaT = 0.0
-        
-        # Heat capacity of total thermal body (J/K)
-        self.heatCapacity = 0.0
-        
-        # List of precursor populations in each group
-        # Since we are modelling power and not neutron numbers,
-        # "precursor population"" is to be interpreted as:
-        #
-        # energyPerFission*fissionCrossSection*actualPrecursorPopulation
-        # 
+        self.ndg = ndg  # number of delayed groups
+
+        self.power = 0.0  # core power
+
+        self.rho = 0.0  # core reactivity
+
+        self.temperature = 0.0  # isothermal approximation of core temp
+
+        self.demand = 0.0  # steam demand (Watts)
+
+        """alpha_t could vary with time or state, so is not considered a
+        constant and is best placed in this module (isothermal
+        approximation)"""
+        self.alpha_t = 0.0
+
+        self.heat_capacity = 0.0  # of total thermal body (Joules/Kelvin)
+
+        """List of precursor populations in each group. Since we are modelling
+        power and not neutron numbers, "precursor population"" is to be
+        interpreted as:
+
+        energyPerFission*fissionCrossSection*actualPrecursorPopulation"""
         self.precursors = [0.0]*ndg
 
-        # Time stamp of this state
         self.time = 0.0
 
-        # Length of this state when vectorised
-        self.vectorLen = self.ndg+7
+        self.vectorLen = self.ndg+7  # Length of system state when vectorised
 
     def vectorise(self):
         """Pack the separate paramers into a single list.
@@ -65,12 +50,12 @@ class PointKineticsState:
         vector = [0.0]*self.vectorLen
 
         vector[0] = self.time
-        vector[1] = self.p
+        vector[1] = self.power
         vector[2] = self.rho
         vector[3] = self.temperature
         vector[4] = self.demand
-        vector[5] = self.alphaT
-        vector[6] = self.heatCapacity
+        vector[5] = self.alpha_t
+        vector[6] = self.heat_capacity
         vector[7:] = self.precursors
 
         return vector
@@ -83,12 +68,12 @@ class PointKineticsState:
             exit()
 
         self.time = vector[0]
-        self.p = vector[1]
+        self.power = vector[1]
         self.rho = vector[2]
         self.temperature = vector[3]
         self.demand = vector[4]
-        self.alphaT = vector[5]
-        self.heatCapacity = vector[6]
+        self.alpha_t = vector[5]
+        self.heat_capacity = vector[6]
         self.precursors = vector[7:]
 
         return None
