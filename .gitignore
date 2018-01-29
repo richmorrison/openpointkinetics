@@ -104,5 +104,5 @@ ENV/
 tags
 
 # PyCharm things
-.ideas
-.ideas/
+.idea
+.idea/
