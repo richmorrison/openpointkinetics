@@ -85,14 +85,42 @@ class PointKineticsSolver:
         """Provide new precursor values, if you want. Make sure the list you
         provide is the same length as length of the precursor list that was
         created in the constructor."""
-
+    
         if len(precursors) is not len(self.state.precursors):
             print("Wrong vector length for set_precursors operation.")
             exit()
-
+    
         self.state.precursors = precursors
+    
+    def set_example_thermal_params(self):
+        
+        # For fun, let's speculate on some values for Sizewell B,
+        # we can calculate some rough data from the document
+        # http://www.iaea.org/inis/collection/NCLCollectionStore/_Public/29/010/29010110.pdf
+        
+        # Set a bulk isothermal temperature of 300 C
+        self.set_temperature(300.0)
+        
+        # Approximate the core to a mass of water with volume equal to the volume
+        # of water in the primary circuit - 334.5 m^3 (1 m^3 = 1E6 cm^3).
+        # Specific heat capacity of water is 4.1813 J.g^-1.K^-1 @ 100C (this will do)
+        # Density of water is 1.0 g per cubic cm
+        self.set_heatCapacity(334.5*1E6*4.1813)
 
-    def solve(self, t_change, log_freq):
+        # Not sure what a representative alpha-T would be. Picking -2.5E-4 as
+        # a rough right-order-of-magnitude value.
+        self.set_alphaT(-2.5E-4)
+
+        # Set the core demand to the steam power of 3500 MW
+        self.set_demand(3500.0E6)
+
+        # Set the core power to the same as the steam power of 3500 MW)
+        self.set_power(3500.0E6)
+
+        # Set initial reactivity
+        self.set_rho(0.0)
+    
+    def solve(self, t_change, log_freq, log=True):
         """Progress the solver by t_change seconds, logging at log_freq
         intervals."""
 
@@ -102,23 +130,33 @@ class PointKineticsSolver:
             log_freq = t_stop
 
         while self.state.get_t() <= t_stop:
-
-            self.logger1.log("power", self.state.get_t(), self.state.p)
-            self.logger1.log("rho", self.state.get_t(), self.state.rho)
-            self.logger1.log("temperature", self.state.get_t(), self.state.temperature)
-            self.logger1.log("demand", self.state.get_t(), self.state.demand)
-            self.logger1.log("alphaT", self.state.get_t(), self.state.alphaT)
-            self.logger1.log("heatCapacity", self.state.get_t(), self.state.heatCapacity)
-
-            for i in range(self.ndg):
-                self.logger1.log("precursor"+str(i),
-                                 self.state.get_t(),
-                                 self.state.precursors[i])
+            
+            if log:
+            
+                self.logger1.log("power", self.state.get_t(), self.state.p)
+                self.logger1.log("rho", self.state.get_t(), self.state.rho)
+                self.logger1.log("temperature", self.state.get_t(), self.state.temperature)
+                self.logger1.log("demand", self.state.get_t(), self.state.demand)
+                self.logger1.log("alphaT", self.state.get_t(), self.state.alphaT)
+                self.logger1.log("heatCapacity", self.state.get_t(), self.state.heatCapacity)
+                
+                for i in range(self.ndg):
+                    self.logger1.log("precursor"+str(i),
+                                     self.state.get_t(),
+                                     self.state.precursors[i])
 
             new_state = self.method.solve(self.state.vectorise(),
                                           self.state.get_t()+log_freq)
 
             self.state.load_vector(new_state)
+    
+    def settle(self):
+        
+        """Run simulation for a period to reach equilibrium.
+        Turns off logging and resets t to 0s"""
+        
+        self.solve(300, 0, log=False)
+        self.state.zero_t()
 
     def plot_power(self):
         """Plot core power from time 0 to latest t_stop from `solve`

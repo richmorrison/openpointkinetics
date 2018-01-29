@@ -29,11 +29,14 @@ core1.set_demand(3500.0E6)
 # Set the core power to the same as the steam power of 3500 MW)
 core1.set_power(3500.0E6)
 
-# Set initial reactivity (Only do set_rho() once or things get confused)
+# Set initial reactivity
 core1.set_rho(0.0)
 
-# 5 minutes to settle
-core1.solve(t_change=300, log_freq=0.1)
+# settle to equilibrium
+core1.settle()
+
+# 30 second lead time to start graph
+core1.solve(t_change=30, log_freq=0.1)
 
 # Let's suppose we raise the control rods and inject some reactivity without
 # changing the steam demand. We should see a self correcting power
