@@ -105,7 +105,7 @@ class PointKineticsSolver:
         volume of water in the primary circuit - 334.5 m^3 (1 m^3 = 1E6 cm^3).
         Specific heat capacity of water is 4.1813 J.g^-1.K^-1 @ 100C (this will
         do) Density of water is 1.0 g per cubic cm"""
-        core1.set_heat_capacity(334.5*1E6*4.1813)
+        self.set_heat_capacity(334.5*1E6*4.1813)
 
         """Not sure what a representative alpha_t would be. Picking -2.5E-4 as
         a rough right-order-of-magnitude value."""
