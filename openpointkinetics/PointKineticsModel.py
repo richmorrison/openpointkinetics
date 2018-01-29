@@ -26,18 +26,24 @@ class PointKineticsModel:
                 precursors - information about the precursors
 
         Returns:
-            dt_dt - the rate of change of time over time.
-            dp_dt - the rate of change of population over time.
-            drho_dt - rate of change of reactivity over time.
-            dPrecursor_dt - amount contributed by the neutron energy group
-            precursors to each of the above.
+            dt_dt - rate of change of time over time
+            dp_dt - rate of change of population over time
+            drho_dt - rate of change of reactivity over time
+            dtemp_dt - rate of change of temperature
+            ddemand_dt - rate of change of steam demand
+            dalpha_t_dt - rate of change of temperature coefficient of
+                reactivity
+            dheat_capacity_dt - rate of change of heat capacity
+            dprecursor_dt - rate of change of all precursors
+
+            all of the above is the differential with respect to time
 
         Excepts:
             None"""
 
         power = vector[1]
         rho = vector[2]
-        temperature = vector[3]
+        temperature = vector[3]  # unused but kept for readability
         demand = vector[4]
         alpha_t = vector[5]
         heat_capacity = vector[6]
@@ -50,24 +56,22 @@ class PointKineticsModel:
 
         for i in range(self.constants.ndg):
             dp_dt += self.constants.lambda_groups[i] * precursors[i]
-        
         if heat_capacity <= 0:
             dtemp_dt = 0.0
         else:
             dtemp_dt = (power - demand) / heat_capacity
-        
+
         drho_dt = dtemp_dt * alpha_t
-        
         ddemand_dt = 0.0
-        
-        dalphaT_dt = 0.0
-        
-        dheatCapacity_dt = 0.0
-        
-        dPrecursor_dt = [0.0] * self.constants.ndg
+
+        dalpha_t_dt = 0.0
+
+        dheat_capacity_dt = 0.0
+
+        dprecursor_dt = [0.0] * self.constants.ndg
 
         for i in range(self.constants.ndg):
-            dPrecursor_dt[i] = ( (self.constants.beta_groups[i] / 
+            dprecursor_dt[i] = ((self.constants.beta_groups[i] /
                                  self.constants.n_gen_time) *
                                  power -
                                  (self.constants.lambda_groups[i] *

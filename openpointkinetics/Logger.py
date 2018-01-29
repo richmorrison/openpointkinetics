@@ -4,7 +4,6 @@ import numpy as np
 
 
 class Logger:
-
     """Data logging class."""
 
     def __init__(self):
@@ -48,6 +47,8 @@ class Logger:
 
         Excepts:
             None"""
+
+        fig = plt.figure(figsize=(12, 9))
 
         for dataset in datasets:
             x = np.asarray(self.data[dataset][0])

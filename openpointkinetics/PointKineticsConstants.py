@@ -1,14 +1,14 @@
 class PointKineticsConstants:
     """Container for the physics constants relevant to the solver."""
 
-    BETA_GROUPS = [0.000215,  # fractional yields for each group
+    BETA_GROUPS = [0.000215,  # fractional yields of beta groups
                    0.001424,
                    0.001274,
                    0.002568,
                    0.000748,
                    0.000273]
 
-    LAMBDA_GROUPS = [0.0124,  # decay constants for each group
+    LAMBDA_GROUPS = [0.0124,  # decay constants for beta groups
                      0.0305,
                      0.111,
                      0.301,

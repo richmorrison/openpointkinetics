@@ -11,8 +11,8 @@ from openpointkinetics.PointKineticsState import PointKineticsState
 from openpointkinetics.Logger import Logger
 from openpointkinetics.numericalmethods import Builder
 
-class PointKineticsSolver:
 
+class PointKineticsSolver:
     """Contains functionality to set reactivity parameters and solve for power
     and precursor populations.
 
@@ -52,7 +52,7 @@ class PointKineticsSolver:
 
     def set_power(self, power):
         """Set initial core power."""
-        self.state.p = power
+        self.state.power = power
 
     def set_rho(self, rho):
         """Set reactivity at the current time."""
@@ -62,26 +62,26 @@ class PointKineticsSolver:
         """Create a reactivity addition."""
         self.state.rho = self.state.rho + rho
 
-    def set_temperature(self, temp):
+    def set_temperature(self, temperaturej):
         """Set isothermal core temperature at the current time."""
-        self.state.temperature = temp
-    
-    def set_demand(self, dem):
+        self.state.temperature = temperaturej
+
+    def set_demand(self, demand):
         """Set steam demand at the current time"""
-        self.state.demand = dem
-    
-    def add_demand(self, dem):
+        self.state.demand = demand
+
+    def add_demand(self, demand):
         """Add to current steam demand"""
-        self.state.demand = self.state.demand + dem
-    
-    def set_alphaT(self, aT):
+        self.state.demand = self.state.demand + demand
+
+    def set_alpha_t(self, alpha_t):
         """Set isothermal temperature coefficient of reactivity"""
-        self.state.alphaT = aT
-    
-    def set_heatCapacity(self, capacity):
+        self.state.alpha_t = alpha_t
+
+    def set_heat_capacity(self, heat_capacity):
         """Set heat capacity of thermal feedback body"""
-        self.state.heatCapacity = capacity
-    
+        self.state.heat_capacity = heat_capacity
+
     def set_precursors(self, precursors):
         """Provide new precursor values, if you want. Make sure the list you
         provide is the same length as length of the precursor list that was
@@ -104,13 +104,13 @@ class PointKineticsSolver:
 
         while self.state.get_t() <= t_stop:
 
-            self.logger1.log("power", self.state.get_t(), self.state.p)
+            self.logger1.log("power", self.state.get_t(), self.state.power)
             self.logger1.log("rho", self.state.get_t(), self.state.rho)
             self.logger1.log("temperature", self.state.get_t(),
                              self.state.temperature)
             self.logger1.log("demand", self.state.get_t(), self.state.demand)
             self.logger1.log("alpha_t", self.state.get_t(), self.state.alpha_t)
-            self.logger1.log("heatCapacity", self.state.get_t(),
+            self.logger1.log("heat_capacity", self.state.get_t(),
                              self.state.heat_capacity)
 
             for i in range(self.ndg):
@@ -139,12 +139,13 @@ class PointKineticsSolver:
 
         self.logger1.plot(["rho"],
                           xlabel="Time(s)",
-                          ylabel="Rho",
+                          ylabel=r"$\rho$",
                           title="Variation of Reactivity with Time")
 
     def plot_temperature(self):
-        """Plot temperature changes from time 0 to latest t_stop from 'solve'"""
-        
+        """Plot temperature changes from time 0 to latest t_stop from
+        'solve'"""
+
         self.logger1.plot(["temperature"],
                           xlabel="Time(s)",
                           ylabel="Temperature",
@@ -153,28 +154,28 @@ class PointKineticsSolver:
     def plot_demand(self):
         """Plot steam demand changes from time 0 to latest t_stop from
         'solve'"""
-        
+
         self.logger1.plot(["demand"],
                           xlabel="Time(s)",
                           ylabel="Steam Demand (J)",
                           title="Variation of Steam Demand with Time")
 
     def plot_alpha_t(self):
-        """Plot alpha-T changes from time 0 to latest t_stop from 'solve'"""
-        
+        """Plot alpha_t changes from time 0 to latest t_stop from 'solve'"""
+
         self.logger1.plot(["alpha_t"],
                           xlabel="Time(s)",
                           ylabel=r"$\alpha_{T}$",
                           title=r"Variation of $\alpha_{T}$ with Time")
-
-    def plot_heatCapacity(self):
+    def plot_heat_capacity(self):
         """Plot changes in thermal body heat capacity from time 0 to latest
         t_stop from 'solve'"""
-        
-        self.logger1.plot(["heatCapacity"],
+
+        self.logger1.plot(["heat_capacity"],
                           xlabel="Time(s)",
                           ylabel="Heat Capacity",
-                          title="Variation of Thermal Body Heat Capacity with Time")
+                          title="Variation of Thermal Body Heat\
+                            Capacity with Time")
 
     def plot_precursors(self):
         """Plot precursor populations from time 0 to latest t_stop from `solve`
@@ -184,5 +185,4 @@ class PointKineticsSolver:
                           xlabel="Time(s)",
                           ylabel="Number in Group",
                           ylog=True,
-                          title="Variation of Number of Delayed\
-                            Neutron Precursors with Time")
+                          title="Variation of Number of Delayed Neutron Precursors with Time")
