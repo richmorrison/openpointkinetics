@@ -95,32 +95,27 @@ class PointKineticsSolver:
         self.state.precursors = precursors
 
     def set_example_thermal_params(self):
+        """For fun, let's speculate on some values for Sizewell B,
+        we can calculate some rough data from the document
+        http://www.iaea.org/inis/collection/NCLCollectionStore/_Public/29/010/29010110.pdf"""
 
-        # For fun, let's speculate on some values for Sizewell B,
-        # we can calculate some rough data from the document
-        # http://www.iaea.org/inis/collection/NCLCollectionStore/_Public/29/010/29010110.pdf
+        self.set_temperature(300.0)  # Set a bulk isothermal temperature of 300 C
 
-        # Set a bulk isothermal temperature of 300 C
-        self.set_temperature(300.0)
-
-        # Approximate the core to a mass of water with volume equal to the volume
-        # of water in the primary circuit - 334.5 m^3 (1 m^3 = 1E6 cm^3).
-        # Specific heat capacity of water is 4.1813 J.g^-1.K^-1 @ 100C (this will do)
-        # Density of water is 1.0 g per cubic cm
+        """Approximate the core to a mass of water with volume equal to the
+        volume of water in the primary circuit - 334.5 m^3 (1 m^3 = 1E6 cm^3).
+        Specific heat capacity of water is 4.1813 J.g^-1.K^-1 @ 100C (this will
+        do) Density of water is 1.0 g per cubic cm"""
         self.set_heat_capacity(334.5*1E6*4.1813)
 
-        # Not sure what a representative alpha-T would be. Picking -2.5E-4 as
-        # a rough right-order-of-magnitude value.
+        """Not sure what a representative alpha_t would be. Picking -2.5E-4 as
+        a rough right-order-of-magnitude value."""
         self.set_alpha_t(-2.5E-4)
 
-        # Set the core demand to the steam power of 3500 MW
-        self.set_demand(3500.0E6)
+        self.set_demand(3500.0E6)  # set core demand to a steam power of 3500MW
 
-        # Set the core power to the same as the steam power of 3500 MW)
-        self.set_power(3500.0E6)
+        self.set_power(3500.0E6)  # set core power equal to steam demand
 
-        # Set initial reactivity
-        self.set_rho(0.0)
+        self.set_rho(0.0)  # set rho
 
     def solve(self, t_change, log_freq, log=True):
         """Progress the solver by t_change seconds, logging at log_freq
@@ -132,7 +127,6 @@ class PointKineticsSolver:
             log_freq = t_stop
 
         while self.state.get_t() <= t_stop:
-
             if log:
 
                 self.logger1.log("power", self.state.get_t(), self.state.power)
@@ -150,7 +144,6 @@ class PointKineticsSolver:
                     self.logger1.log("precursor"+str(i),
                                      self.state.get_t(),
                                      self.state.precursors[i])
-
             new_state = self.method.solve(self.state.vectorise(),
                                           self.state.get_t()+log_freq)
 
@@ -208,6 +201,7 @@ class PointKineticsSolver:
                           xlabel="Time(s)",
                           ylabel=r"$\alpha_{T}$",
                           title=r"Variation of $\alpha_{T}$ with Time")
+
     def plot_heat_capacity(self):
         """Plot changes in thermal body heat capacity from time 0 to latest
         t_stop from 'solve'"""
